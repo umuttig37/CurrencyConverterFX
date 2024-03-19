@@ -1,6 +1,9 @@
+package Controller;
+
 import java.util.HashMap;
 import javafx.scene.control.Alert;
-
+import View.ConverterView;
+import Model.Currency;
 public class ConverterController {
     private ConverterView view;
     private HashMap<String, Currency> currencies = new HashMap<>();

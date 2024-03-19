@@ -1,3 +1,5 @@
+package Model;
+
 public class Currency {
     private String abbreviation;
     private String name;

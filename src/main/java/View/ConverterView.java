@@ -1,27 +1,39 @@
+package View;
+
+import Controller.ConverterController;
+import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-public class ConverterView extends VBox{
+import javafx.stage.Stage;
+import Dao.CurrencyDao;
+import javafx.collections.*;
+
+public class ConverterView extends Application {
     private TextField amountfield;
     private ChoiceBox<String> sourceCurrencyBox;
     private ChoiceBox<String> targetCurrencyBox;
     private Label resultLabel;
     private Button convertButton;
+    private VBox vBox = new VBox();
+    CurrencyDao dao = new CurrencyDao();
+
 
     public ConverterView(){
         Label amountLabel = new Label("Amount:");
         amountfield = new TextField();
 
-        Label sourceLabel = new Label("Source Currency:");
-        sourceCurrencyBox = new ChoiceBox<>();
+        Label sourceLabel = new Label("Source");
+        sourceCurrencyBox = new ChoiceBox<>(FXCollections.observableArrayList(dao.getTargets()));
 
-        Label targetLabel = new Label("Target Currency:");
-        targetCurrencyBox = new ChoiceBox<>();
+        Label targetLabel = new Label("Target");
+        targetCurrencyBox = new ChoiceBox<>(FXCollections.observableArrayList(dao.getTargets()));
 
         resultLabel = new Label();
 
         convertButton = new Button("Convert");
 
-        this.getChildren().addAll( amountLabel, amountfield, sourceLabel,
+        vBox.getChildren().addAll( amountLabel, amountfield, sourceLabel,
                 sourceCurrencyBox, targetLabel, targetCurrencyBox,
                 resultLabel, convertButton);
     }
@@ -40,5 +52,12 @@ public class ConverterView extends VBox{
     }
     public Button getConvertButton(){
         return convertButton;
+    }
+    @Override
+    public void start(Stage window){
+        Scene scene = new Scene(vBox, 300, 250);
+        window.setTitle("Currency Converter");
+        window.setScene(scene);
+        window.show();
     }
 }
